@@ -1,33 +1,120 @@
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f2f8ff;
-  color: #333;
-  text-align: center;
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
   padding: 2rem;
 }
 
-h1 {
-  color: #0056b3;
-  margin-bottom: 1rem;
+
+.container {
+  background: #fff;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-p {
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
+h1, h2 {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 1.5rem;
 }
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+label {
+  font-weight: bold;
+  color: #1565c0;
+}
+
+input, select {
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 5px rgba(21,101,192,0.3);
+}
+
 
 button {
-  background-color: #007bff;
+  background-color: #1565c0;
   color: white;
-  padding: 1rem 2rem;
+  padding: 0.9rem;
   font-size: 1rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0d47a1;
+  transform: scale(1.05);
 }
+
+
+#listaTurnos {
+  list-style: none;
+  padding: 0;
+}
+
+#listaTurnos li {
+  background: #f9f9f9;
+  margin-bottom: 0.8rem;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid #1565c0;
+  transition: transform 0.2s ease;
+}
+
+#listaTurnos li:hover {
+  transform: translateX(5px);
+  background: #f1f8ff;
+}
+
+
+#listaTurnos button {
+  background: #e53935;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+#listaTurnos button:hover {
+  background: #b71c1c;
+  transform: scale(1.1);
+}
+
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+

@@ -7,9 +7,63 @@
     <title>Turnos Médicos</title>
   </head>
   <body>
-    <h1>Simulador de Turnos Médicos</h1>
-    <p>¡Bienvenido al simulador de turnos médicos!</p>
-    <button onclick="iniciarSimulador()">Reservar Turno</button>
+  <div class="container">
+    <h1>Turnos Médicos</h1>
+
+    <form id="formTurno">
+      <label>Nombre:</label>
+      <input type="text" id="nombre" required>
+
+      <label>DNI:</label>
+      <input type="number" id="dni" required>
+
+      <label>Especialidad:</label>
+      <select id="especialidad">
+        <option value="Clínica">Clínica Médica</option>
+        <option value="Pediatría">Pediatría</option>
+        <option value="Odontología">Odontología</option>
+        <option value="Ginecología">Ginecología</option>
+        <option value="Traumatología">Traumatología</option>
+        <option value="Cardiología">Cardiología</option>
+        <option value="Dermatología">Dermatología</option>
+        <option value="Neurología">Neurología</option>
+        <option value="Oftalmología">Oftalmología</option>
+        <option value="Otorrinolaringología">Otorrinolaringología</option>
+        <option value="Endocrinología">Endocrinología</option>
+        <option value="Urología">Urología</option>
+        <option value="Gastroenterología">Gastroenterología</option>
+        <option value="Nefrología">Nefrología</option>
+        <option value="Oncología">Oncología</option>
+        <option value="Reumatología">Reumatología</option>
+        <option value="Psiquiatría">Psiquiatría</option>
+        <option value="Psicología">Psicología</option>
+        <option value="Nutrición">Nutrición</option>
+        <option value="Alergología">Alergología</option>
+      </select>
+
+      <label>Obra Social:</label>
+      <select id="obraSocial" required>
+        <option value="OSDE">OSDE</option>
+        <option value="Swiss Medical">Swiss Medical</option>
+        <option value="Galeno">Galeno</option>
+        <option value="PAMI">PAMI</option>
+        <option value="Particular">Particular</option>
+      </select>
+
+      <label>Fecha:</label>
+      <input type="date" id="fecha" required>
+
+      <label>Hora:</label>
+      <input type="time" id="hora" required>
+
+      <button type="submit">Reservar Turno</button>
+    </form>
+
+    <h2>Turnos Reservados</h2>
+    <ul id="listaTurnos"></ul>
+  </div>
+    
+    
     <script src="./main.js"></script>
   </body>
 </html>

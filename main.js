@@ -1,68 +1,68 @@
-const turnos = [];
-const especialidades = ["Clínica", "Pediatría", "Odontología"];
+const form = document.getElementById("formTurno");
+const lista = document.getElementById("listaTurnos");
 
-function iniciarSimulador() {
-  alert("Bienvenido al simulador de turnos médicos");
-  let continuar = true;
 
-  while (continuar) {
-    const nombre = prompt("Ingrese su nombre:");
-    if (!nombre) {
-      alert("Nombre no válido");
-      continue;
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const turnosGuardados = JSON.parse(localStorage.getItem("turnos")) || [];
+  turnosGuardados.forEach(turno => mostrarTurno(turno));
+});
 
-    const dni = prompt("Ingrese su DNI (solo números):");
-    if (!dni || isNaN(dni) || dni.trim() === "") {
-      alert("⚠️ DNI no válido");
-      continue;
-    }
 
-    let mensajeEsp = "Especialidades disponibles:\n";
-    especialidades.forEach((esp, i) => {
-      mensajeEsp += `${i + 1}. ${esp}\n`;
-    });
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    let opcion = parseInt(prompt(mensajeEsp + "Seleccione una opción (1-3):"));
-    if (opcion < 1 || opcion > especialidades.length || isNaN(opcion)) {
-      alert("Especialidad inválida");
-      continue;
-    }
+  const nombre = document.getElementById("nombre").value.trim();
+  const dni = document.getElementById("dni").value.trim();
+  const especialidad = document.getElementById("especialidad").value;
+  const obraSocial = document.getElementById("obraSocial").value;
+  const fecha = document.getElementById("fecha").value;
+  const hora = document.getElementById("hora").value;
 
-    const especialidad = especialidades[opcion - 1];
-    const fecha = prompt("Ingrese la fecha del turno (formato: AAAA-MM-DD):");
-    const hora = prompt("Ingrese la hora del turno (formato: HH:MM):");
-
-    const confirmacion = confirm(
-      `¿Confirmar turno?\n\nNombre: ${nombre}\nDNI: ${dni}\nEspecialidad: ${especialidad}\nFecha: ${fecha}\nHora: ${hora}`
-    );
-
-    if (confirmacion) {
-      const turno = { nombre, especialidad, fecha, hora };
-      turnos.push(turno);
-      alert("✅ Turno reservado con éxito");
-      console.log("🔖 Turno guardado:", turno);
-    } else {
-      alert("❌ Turno cancelado");
-    }
-
-    continuar = confirm("¿Desea reservar otro turno?");
+  if (!nombre || !dni || !fecha || !hora || !obraSocial) {
+    alert("⚠️ Todos los campos son obligatorios");
+    return;
   }
 
-  mostrarTurnos();
+  const turno = { nombre, dni, especialidad, obraSocial, fecha, hora };
+
+  mostrarTurno(turno);
+  guardarTurno(turno);
+
+  alert("✅ Turno reservado con éxito");
+  form.reset();
+});
+
+
+function mostrarTurno(turno) {
+  const item = document.createElement("li");
+  item.textContent = `${turno.nombre} (DNI: ${turno.dni}) - ${turno.especialidad} - ${turno.obraSocial} - ${turno.fecha} a las ${turno.hora}`;
+
+  
+  const btnEliminar = document.createElement("button");
+  btnEliminar.textContent = "❌";
+  btnEliminar.style.marginLeft = "1rem";
+  btnEliminar.onclick = () => eliminarTurno(turno, item);
+
+  item.appendChild(btnEliminar);
+  lista.appendChild(item);
 }
 
-function mostrarTurnos() {
-  console.log("📋 Lista de turnos registrados:");
-  if (turnos.length === 0) {
-    console.log("No hay turnos reservados.");
-  } else {
-    turnos.forEach((turno, index) => {
-      console.log(
-        `${index + 1}. ${turno.nombre} - ${turno.especialidad} - ${
-          turno.fecha
-        } a las ${turno.hora}`
-      );
-    });
+
+function guardarTurno(turno) {
+  const turnos = JSON.parse(localStorage.getItem("turnos")) || [];
+  turnos.push(turno);
+  localStorage.setItem("turnos", JSON.stringify(turnos));
+}
+
+
+function eliminarTurno(turno, itemElemento) {
+  if (confirm(`¿Eliminar turno de ${turno.nombre}?`)) {
+    itemElemento.remove();
+
+    let turnos = JSON.parse(localStorage.getItem("turnos")) || [];
+    turnos = turnos.filter(t =>
+      !(t.nombre === turno.nombre && t.dni === turno.dni && t.fecha === turno.fecha && t.hora === turno.hora && t.obraSocial === turno.obraSocial))
+    ;
+    localStorage.setItem("turnos", JSON.stringify(turnos));
   }
 }
